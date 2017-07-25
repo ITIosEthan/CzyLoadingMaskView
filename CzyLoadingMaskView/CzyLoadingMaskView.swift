@@ -21,7 +21,7 @@ public extension UIImageView{
     //typedef void(^SDWebImageDownloaderProgressBlock)(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL)
     //typedef void(^SDExternalCompletionBlock)(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL)
     
-    public func createCzyImage(imageUrl url:String?) -> Void {
+    public func createCzyImage(imageUrl url:String?, placeHolderImage image:UIImage?) -> Void {
         
         //添加旋转视图
         self.addRotationImageView(CGRect.init(x: self.bounds.size.width/2-rotationImageWidth!/2,
@@ -30,7 +30,7 @@ public extension UIImageView{
                                               height: rotationImageHeight!))
         
         self.sd_setImage(with: URL.init(string: url!),
-                         placeholderImage: UIImage.imageWithColor(UIColor.lightGray),
+                         placeholderImage: image,
                          options: SDWebImageOptions.allowInvalidSSLCertificates,
                          progress: {(_ receivedSize:NSInteger?, _ expectedSize:NSInteger?, _  targetURL:URL?) ->Void in
             

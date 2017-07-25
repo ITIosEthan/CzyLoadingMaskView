@@ -24,8 +24,7 @@ class ViewController: UIViewController {
     
     @IBAction func addImageView(_ sender: UIButton) {
         
-        imageV!.createCzyImage(imageUrl: urls[(Int)(arc4random_uniform(3))])
-        
+        imageV!.createCzyImage(imageUrl: urls[(Int)(arc4random_uniform(UInt32(urls.count)))],   placeHolderImage: UIImage.imageWithColor(UIColor.lightGray))
     }
 
 
