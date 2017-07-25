@@ -9,49 +9,96 @@
 import Foundation
 import UIKit
 
+public enum czyRotationStyle:Int{
+    
+    case system
+    
+    case custom
+}
+
 var rotaionImageView:UIImageView?
 
 var rotationImageWidth:CGFloat? = 30
 var rotationImageHeight:CGFloat? = 30
 
+var activityView:UIActivityIndicatorView?
+
 public extension UIImageView{
+    
+    
+    
     
     //内部不能直接添加成员变量（extensions may not contain stored...） 写到外边
     
     //typedef void(^SDWebImageDownloaderProgressBlock)(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL)
     //typedef void(^SDExternalCompletionBlock)(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL)
     
-    public func createCzyImage(imageUrl url:String?, placeHolderImage image:UIImage?) -> Void {
+    // MARK: - 自定义旋转视图
+    ///
+    /// - Parameters:
+    ///   - url: url
+    ///   - image: 默认图片
+    ///   - style: 样式：系统 自定义
+    public func createCzyImage(imageUrl url:String?, placeHolderImage image:UIImage?, rotationStyle style:czyRotationStyle) -> Void {
         
-        //添加旋转视图
-        self.addRotationImageView(CGRect.init(x: self.bounds.size.width/2-rotationImageWidth!/2,
-                                              y: self.bounds.size.height/2-rotationImageHeight!/2,
-                                              width: rotationImageWidth!,
-                                              height: rotationImageHeight!))
-        
+        //添加样式
+        if style == .system {
+            
+            if activityView != nil {
+                return
+            }
+            
+            //系统
+            activityView = UIActivityIndicatorView.init(activityIndicatorStyle: .gray)
+            activityView?.transform = CGAffineTransform.init(scaleX: 2.0, y: 2.0)
+            activityView?.center = CGPoint.init(x: self.bounds.size.width/2, y: self.bounds.size.height/2)
+            activityView?.startAnimating()
+            self.addSubview(activityView!)
+            
+        }else if(style == .custom){
+            
+            if rotaionImageView != nil {
+                return
+            }
+            
+            //自定义
+            self.addRotationImageView(CGRect.init(x: self.bounds.size.width/2-rotationImageWidth!/2,
+                                                  y: self.bounds.size.height/2-rotationImageHeight!/2,
+                                                  width: rotationImageWidth!,
+                                                  height: rotationImageHeight!))
+            
+        }
+       
+        //请求
         self.sd_setImage(with: URL.init(string: url!),
                          placeholderImage: image,
                          options: SDWebImageOptions.allowInvalidSSLCertificates,
                          progress: {(_ receivedSize:NSInteger?, _ expectedSize:NSInteger?, _  targetURL:URL?) ->Void in
-            
+                            
             //图片下载完成后 不再走progress回调
             print("receivedSize = \(receivedSize) \n expectedSize = \(expectedSize) \n targetURL = \(targetURL?.absoluteString)")
-            
-        
+                            
+                            
         }, completed: {(image:UIImage?,
-                        error:Error?,
-                        cacheType:SDImageCacheType?,
-                        imageURL:URL?) ->Void in
-        
+            error:Error?,
+            cacheType:SDImageCacheType?,
+            imageURL:URL?) ->Void in
+            
             print("completion")
             
-            //太快了
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.5, execute: {()->Void in
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.5, execute: {() ->Void in
             
-                self.removeRotationImageView()
-
+                //移除
+                if((activityView) != nil){
+                    activityView?.stopAnimating()
+                    activityView?.removeFromSuperview()
+                    activityView = nil
+                }
+                
+                if((rotaionImageView) != nil){
+                    self.removeRotationImageView()
+                }
             })
-            
         })
     }
     
@@ -70,6 +117,7 @@ public extension UIImageView{
         
         rotaionImageView?.layer.removeAnimation(forKey: "rotation")
         rotaionImageView?.removeFromSuperview()
+        rotaionImageView = nil
     }
     
     //旋转动画
@@ -85,6 +133,7 @@ public extension UIImageView{
         return rotationAnimation
     }
     
+    
 }
 
 public extension UIImage{
@@ -97,7 +146,7 @@ public extension UIImage{
         UIGraphicsBeginImageContext(rect.size)
         
         let context = UIGraphicsGetCurrentContext()
-
+        
         context?.setFillColor(targetColor.cgColor)
         context?.fill(rect)
         
@@ -109,6 +158,6 @@ public extension UIImage{
     }
     
     
-
+    
 }
 

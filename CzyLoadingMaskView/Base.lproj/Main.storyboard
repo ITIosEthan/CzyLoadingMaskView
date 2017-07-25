@@ -22,30 +22,54 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cxh-PT-FFR">
-                                <rect key="frame" x="157" y="319" width="62" height="30"/>
-                                <state key="normal" title="添加图片"/>
+                                <rect key="frame" x="157" y="235" width="62" height="30"/>
+                                <state key="normal" title="系统样式"/>
                                 <connections>
-                                    <action selector="addImageView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="h6K-CB-bZS"/>
+                                    <action selector="system:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Z4g-tY-PjW"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iQf-L8-jFA">
-                                <rect key="frame" x="88" y="89" width="200" height="200"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wV6-IE-PQv">
+                                <rect key="frame" x="-38" y="-40" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fae-re-uAj">
+                                <rect key="frame" x="149" y="413" width="77" height="30"/>
+                                <state key="normal" title="自定义样式"/>
+                                <connections>
+                                    <action selector="custom:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0Xm-dv-Xgb"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dnf-UR-Uqp">
+                                <rect key="frame" x="138" y="98.5" width="100" height="100"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="P37-zY-vYd"/>
-                                    <constraint firstAttribute="width" constant="200" id="ckF-sE-8yg"/>
+                                    <constraint firstAttribute="height" constant="100" id="6Sp-4p-3ji"/>
+                                    <constraint firstAttribute="width" constant="100" id="onM-88-rq8"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iQf-L8-jFA">
+                                <rect key="frame" x="137" y="290" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="P37-zY-vYd"/>
+                                    <constraint firstAttribute="width" constant="100" id="ckF-sE-8yg"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="iQf-L8-jFA" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Lxw-wt-msp"/>
-                            <constraint firstItem="cxh-PT-FFR" firstAttribute="top" secondItem="iQf-L8-jFA" secondAttribute="bottom" constant="30" id="l3D-oU-vRx"/>
+                            <constraint firstItem="Dnf-UR-Uqp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="MH1-CJ-kkn"/>
+                            <constraint firstItem="fae-re-uAj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="MQD-DZ-MFm"/>
+                            <constraint firstItem="iQf-L8-jFA" firstAttribute="top" secondItem="Dnf-UR-Uqp" secondAttribute="bottom" constant="91.5" id="Qiv-qN-sWf"/>
+                            <constraint firstItem="fae-re-uAj" firstAttribute="top" secondItem="cxh-PT-FFR" secondAttribute="bottom" constant="148" id="fvA-Uz-bIp"/>
+                            <constraint firstItem="cxh-PT-FFR" firstAttribute="top" secondItem="iQf-L8-jFA" secondAttribute="bottom" constant="-155" id="l3D-oU-vRx"/>
                             <constraint firstItem="cxh-PT-FFR" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="tsC-Q8-Na2"/>
-                            <constraint firstItem="cxh-PT-FFR" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="vfX-WE-jRC"/>
+                            <constraint firstItem="cxh-PT-FFR" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-83.5" id="vfX-WE-jRC"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="imageV" destination="iQf-L8-jFA" id="J29-4u-M4p"/>
+                        <outlet property="custom" destination="iQf-L8-jFA" id="fb0-gQ-qEk"/>
+                        <outlet property="system" destination="Dnf-UR-Uqp" id="Vl7-UF-Six"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
